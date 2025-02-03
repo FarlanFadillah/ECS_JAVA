@@ -46,21 +46,15 @@ public class Entity {
         this.name = name;
     }
 
-    public <T extends Component> T getComponent(Class<T> componentClass) {
-        return componentClass.cast(components.get(componentClass));
+    public void addComponent(Component component) {
+        components.put(component.getClass(), component);
     }
 
-    public <T extends Component> boolean hasComponent(Class<T> componentClass) {
-        return components.containsKey(componentClass);
+    public <T extends Component> T getComponent(Class<T> componentType) {
+        return componentType.cast(components.get(componentType));
     }
 
-    public <T extends Component> void removeComponent(Class<T> componentClass) {
-        components.remove(componentClass);
+    public boolean hasComponent(Class<? extends Component> componentType) {
+        return components.containsKey(componentType);
     }
-
-    public <T extends Component> T addComponent(Class<T> componentClass, T component) {
-        components.put(componentClass, component);
-        return component;
-    }
-
 }

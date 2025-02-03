@@ -9,7 +9,9 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
+import Action.Action;
 // project import
 import Input.KeyInput;
 import Scene.Scene;
@@ -26,6 +28,8 @@ public class Engine extends Canvas implements Runnable{
 	private boolean running = true;
 	private String currentSceneName = "NULL";
 	private Map<String, Scene> m_sceneMap = new HashMap<String, Scene>();
+
+	public Map<Integer, String> keyInMap = new HashMap<>();
 	
 	private KeyInput keyIn;
 	private Frame window;
@@ -47,6 +51,7 @@ public class Engine extends Canvas implements Runnable{
 	
 	public void update()
 	{
+		userInput();
 		currentScene().update();
 	}
 	
@@ -73,6 +78,8 @@ public class Engine extends Canvas implements Runnable{
 	public void stop()
 	{
 		running = false;
+		window.frame.setVisible(false);
+		System.exit(0);
 	}
 	public void start(){
         running = true;
@@ -119,12 +126,22 @@ public class Engine extends Canvas implements Runnable{
 		stop();
 	}
 	
-	public void userInput(int key)
+	public void userInput()
 	{
-		if(key == KeyEvent.VK_ESCAPE)
+		for(Entry<Integer, String> entry : keyInMap.entrySet())
 		{
-			stop();
+			if(entry.getKey() == KeyEvent.VK_ESCAPE) stop();
+			if(!currentScene().m_actionMap.containsKey(entry.getKey()))
+			{
+				continue;
+			}
+
+			String actionType = entry.getValue() == "PRESSED" ? "START" : "END";
+			
+			currentScene().sDoAction(new Action(actionType, currentScene().m_actionMap.get(entry.getKey())));
 		}
+
+		keyInMap.clear();
 	}
 	
 	public Scene currentScene()

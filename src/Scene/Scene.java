@@ -1,15 +1,19 @@
 package Scene;
 import java.awt.Graphics2D;
+import java.util.HashMap;
 import java.util.Map;
 
 import Action.Action;
 import Engine.Engine;
+import Entity.EntityManager;
 public abstract class Scene {
 	
-	private Map<Integer, String> m_actionMap;
+	public Map<Integer, String> m_actionMap = new HashMap<>();
 	private Engine m_game;
 	public boolean m_paused = false;
 	
+	public EntityManager m_entityManager = new EntityManager();
+
 	public Scene(Engine engine)
 	{
 		this.m_game = engine;

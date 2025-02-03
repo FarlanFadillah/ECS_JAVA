@@ -23,17 +23,17 @@ public class KeyInput implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		int key = e.getKeyChar();
-		System.out.println(key); 
-		m_engine.userInput(key); 
+		int key = e.getKeyCode();
+		// System.out.println(key); 
+		m_engine.keyInMap.put(key, "PRESSED");
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		int key = e.getKeyChar();
-		System.out.println(key);
-		m_engine.userInput(key);
+		int key = e.getKeyCode();
+		// System.out.println(key);
+		m_engine.keyInMap.put(key, "RELEASED");
 	}
 
 }
