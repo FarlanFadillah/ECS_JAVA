@@ -3,6 +3,8 @@ package Entity;
 import java.util.HashMap;
 import java.util.Map;
 
+import Component.Component;
+
 public class Entity {
 
     private boolean active = true;
@@ -17,6 +19,7 @@ public class Entity {
     Entity(long id, String tag) {
         this.id = id;
         this.tag = tag;
+
     }
 
     public String getTag() {
@@ -60,8 +63,4 @@ public class Entity {
         return component;
     }
 
-    // Base Component class to be extended by other components
-    public static abstract class Component {
-        public boolean has = false;
-    }
 }
