@@ -23,6 +23,7 @@ public abstract class Scene {
 	public abstract void sRender(Graphics2D g2d);
 	public abstract void sDoAction(Action action);
 	public abstract void onEnd();
+	public abstract void sAnimation();
 	
 	public void registerAction(int key, String name)
 	{

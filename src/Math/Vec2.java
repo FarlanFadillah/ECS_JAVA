@@ -100,6 +100,7 @@ public class Vec2 {
     public void normalize()
     {
         float len = length();
+        if(len <= 0) return;
         this.x /= len;
         this.y /= len;
     }

@@ -56,6 +56,7 @@ public class SceneMain extends Scene{
 			g2d.setColor(Color.red);
 			g2d.draw(rect);
 		}
+		sAnimation();
 	}
 
 	@Override
@@ -111,7 +112,7 @@ public class SceneMain extends Scene{
 	{
 		player = m_entityManager.addEntity("Player");
 
-		player.addComponent(new CTransform(new Vec2(10,10), new Vec2(5,5)));
+		player.addComponent(new CTransform(new Vec2(10,10), 5));
 		player.addComponent(new CBoundingBox(new Vec2(32, 32)));
 		player.addComponent(new CInput());
 
@@ -122,23 +123,47 @@ public class SceneMain extends Scene{
 	{
 		CInput pInput = player.getComponent(CInput.class);
 		CTransform pTransform = player.getComponent(CTransform.class);
+
+		Vec2 playerVel = new Vec2();
+
 		if(pInput.up)
 		{
-			pTransform.m_pos.y -= pTransform.m_vel.y;
+			playerVel.y -= 1;
 		}
 		else if(pInput.down)
 		{
-			pTransform.m_pos.y += pTransform.m_vel.y;
+			playerVel.y += 1;
 		}
 
 		if(pInput.left)
 		{
-			pTransform.m_pos.x -= pTransform.m_vel.x;
+			playerVel.x -= 1;
 		}
 		else if(pInput.right)
 		{
-			pTransform.m_pos.x += pTransform.m_vel.x;
+			playerVel.x += 1;
+		}
+
+		pTransform.m_vel = playerVel;
+		pTransform.m_vel.normalize();
+
+		for(Entity e : m_entityManager.getEntities())
+		{
+			CTransform eTransform = e.getComponent(CTransform.class);
+			eTransform.m_pos.plus(eTransform.m_vel.mult(eTransform.m_speed));
 		}
 	}
+
+	@Override
+	public void sAnimation() 
+	{
+		for(Entity e : m_entityManager.getEntities())
+		{
+			if(!e.hasComponent(CAnimation.class)) continue;
+			e.getComponent(CAnimation.class).m_animation.update();
+		}		
+	}
+
+	
 
 }
