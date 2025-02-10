@@ -38,7 +38,6 @@ public class SceneMain extends Scene{
 			m_entityManager.update();
 			sMovement();
 		}
-		sRender();
 	}
 	
 	@Override

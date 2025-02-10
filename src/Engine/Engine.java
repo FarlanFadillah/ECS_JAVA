@@ -19,11 +19,6 @@ import FileHandler.AssetsManager;
 public class Engine{
 	
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
 	private boolean running = true;
 	private String currentSceneName = "NULL";
 	private Map<String, Scene> m_sceneMap = new HashMap<String, Scene>();
@@ -36,7 +31,6 @@ public class Engine{
 	{
 	
         window.create(new VideoMode(800, 600), "JSFML Example");
-		window.setFramerateLimit(120);
 
 		m_assets.loadFromFile("res/config/assets.json");
 		
@@ -53,6 +47,11 @@ public class Engine{
 		userInput();
 		currentScene().update();
 	}
+
+	public void render()
+	{
+		currentScene().sRender();
+	}
 	
 	
 	
@@ -67,10 +66,38 @@ public class Engine{
 	
 	public void run()
 	{
-		while(window.isOpen() && running)
-		{
-			update();
+		double draw = 1000000000;
+		long time = System.nanoTime();
+		double delta=0;
+		long curentTime=0;
+		
+		double fps=0;
+        int tick=0;
+		long timer=0;
+		
+		while(window.isOpen() && running) {
+			curentTime = System.nanoTime();
+			delta += (curentTime - time) / (draw/60);
+			
+			timer +=curentTime - time;
+			time = curentTime;
+			
+			if(delta >= 1) {
+                update();
+                tick++;
+                delta--;
+			}
+			
+            render();
+            fps++;
+			if(timer >= 1000000000) {
+                System.out.println("tick : " + tick + ", fps : " + fps);
+                tick = 0;
+				fps = 0;
+				timer=0;
+			}
 		}
+		stop();
 	}
 	
 	public void userInput()
