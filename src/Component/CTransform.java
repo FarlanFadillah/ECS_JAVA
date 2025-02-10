@@ -1,13 +1,13 @@
 package Component;
 
-import Math.Vec2;
+import Math.Vec2f;
 
 public class CTransform extends Component { 
-    public Vec2 m_pos;
+    public Vec2f m_pos;
     public float m_speed;
-    public Vec2 m_vel = new Vec2();
+    public Vec2f m_vel = new Vec2f();
     public CTransform(){}
-    public CTransform(Vec2 pos, float speed)
+    public CTransform(Vec2f pos, float speed)
     {
         this.m_pos = pos;
         this.m_speed = speed;

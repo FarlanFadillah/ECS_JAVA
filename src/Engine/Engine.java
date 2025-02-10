@@ -44,7 +44,7 @@ public class Engine extends Canvas implements Runnable{
 		keyIn = new KeyInput(this); 
 		addKeyListener(keyIn);
 
-		m_assets.loadFromFile("res/try.json");
+		m_assets.loadFromFile("res/config/assets.json");
 		
 		ChangeScene("MAIN", new SceneMain(this));
 	}
@@ -158,5 +158,10 @@ public class Engine extends Canvas implements Runnable{
 	{
 		currentSceneName = name;
 		m_sceneMap.put(name, scene);
+	}
+
+	public AssetsManager assets()
+	{
+		return m_assets;
 	}
 }

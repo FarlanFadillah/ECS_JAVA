@@ -2,35 +2,31 @@ package Animation;
 
 import java.awt.image.BufferedImage;
 import FileHandler.SpriteSheet;
-public class Animation {
+public class Animation 
+{
 
-    private SpriteSheet m_spriteSheet;
-    private BufferedImage m_sprite;
+    private SpriteSheet m_sprite;
+    private BufferedImage m_texture;
     private int         m_frameCount    = 1;
     private int         m_duration      = 1;
     private int         m_currentFrame  = 0;
     private int         m_gameFrames     = 0;
     private String      m_name          = "NONE";
     private int         W, H;
-    public Animation(){}
-    public Animation(String name, String filepath)
-    {
-        this.m_spriteSheet = new SpriteSheet(filepath);
-        this.m_name = name;
-    }
-    public Animation(String name, String filePath, int frameCount, int duration, int w, int h)
+    public Animation(String name, SpriteSheet sprite, int frameCount, int duration)
     {
         this.m_name         = name;
-        this.m_spriteSheet  = new SpriteSheet(filePath);
+        this.m_sprite       = sprite;
         this.m_frameCount   = frameCount;
         this.m_duration     = duration;
-        this.W = w;
-        this.H = h;
+
+        this.W = m_sprite.getTexture().getWidth()/frameCount;
+        this.H = m_sprite.getTexture().getHeight();
     }
 
-    public BufferedImage getSprite()
+    public BufferedImage getTexture()
     {
-        return m_sprite;
+        return m_texture;
     }
 
     public void update()
@@ -38,7 +34,7 @@ public class Animation {
         if (m_duration <= 0) return;
         m_gameFrames++;
         m_currentFrame = (m_gameFrames / m_duration) % m_frameCount;
-        m_sprite = m_spriteSheet.grabImage(m_currentFrame, 0, W , H);
+        m_texture = m_sprite.grabImage(m_currentFrame, 0, W , H);
     }    
 
     public String getName()

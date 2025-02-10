@@ -11,7 +11,8 @@ import Component.*;
 
 import Engine.Engine;
 import Entity.Entity;
-import Math.Vec2;
+import FileHandler.AssetsManager;
+import Math.Vec2f;
 
 public class SceneMain extends Scene{
 
@@ -41,13 +42,14 @@ public class SceneMain extends Scene{
 	@Override
 	public void sRender(Graphics2D g2d) {
 		// TODO Auto-generated method stub
+		AssetsManager assets = getEngine().assets();
 		for(Entity temp : m_entityManager.getEntities("Player"))
 		{
 			CTransform ct = temp.getComponent(CTransform.class);
 			CBoundingBox cb = temp.getComponent(CBoundingBox.class);
 
-			Vec2 pos = ct.m_pos;
-			Vec2 size = cb.m_size;
+			Vec2f pos = ct.m_pos;
+			Vec2f size = cb.m_size;
 
 			Rectangle2D.Float rect = new Rectangle2D.Float(pos.x, pos.y, size.x, size.y);
 			g2d.setColor(Color.blue);
@@ -56,6 +58,24 @@ public class SceneMain extends Scene{
 			g2d.setColor(Color.red);
 			g2d.draw(rect);
 		}
+
+		int centerX = 192 + (192/2);
+		int centerY = 192 + (192/2);
+		double angle = Math.toRadians(45);
+
+		// System.out.println(centerX + " " + centerY);
+		g2d.rotate(angle);
+		g2d.translate(centerX, centerY);
+
+		g2d.drawImage(assets.getSprite("Idle_Fighter_Right").grabImage(1, 1, 192, 192), 192, 192, null);
+		Rectangle2D.Float rect = new Rectangle2D.Float(192, 192,192, 192);
+		g2d.setColor(new Color(0, 0, 255, 100));
+		g2d.fill(rect);
+
+
+		g2d.rotate(-angle);
+		//g2d.translate(-centerX, -centerY);
+
 		sAnimation();
 	}
 
@@ -112,8 +132,8 @@ public class SceneMain extends Scene{
 	{
 		player = m_entityManager.addEntity("Player");
 
-		player.addComponent(new CTransform(new Vec2(10,10), 5));
-		player.addComponent(new CBoundingBox(new Vec2(32, 32)));
+		player.addComponent(new CTransform(new Vec2f(10,10), 5));
+		player.addComponent(new CBoundingBox(new Vec2f(32, 32)));
 		player.addComponent(new CInput());
 
 		m_entityManager.update();
@@ -124,7 +144,7 @@ public class SceneMain extends Scene{
 		CInput pInput = player.getComponent(CInput.class);
 		CTransform pTransform = player.getComponent(CTransform.class);
 
-		Vec2 playerVel = new Vec2();
+		Vec2f playerVel = new Vec2f();
 
 		if(pInput.up)
 		{

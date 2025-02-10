@@ -1,7 +1,20 @@
 {
+    "spritesheets"       :[
+        {
+            "name"      : "Idle_Fighter_Right",
+            "path"      : "res/spritesheet/Fighter/Fighter.png",
+            "posX"      : 0,
+            "posY"      : 0,
+            "width"     : 1152,
+            "height"    : 192
+        }
+    ],
     "animations"    : [
         {
-            "name"  : ""
+            "name"      : "Idle_Fighter_Right",
+            "sprite"   : "Idle_Fighter_Right",
+            "frameCount": 6,
+            "duration"  : 6
         }
     ]
 }

@@ -29,4 +29,9 @@ public abstract class Scene {
 	{
 		m_actionMap.put(key, name); 
 	}
+
+	public Engine getEngine()
+	{
+		return m_game;
+	}
 }
