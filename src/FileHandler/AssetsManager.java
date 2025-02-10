@@ -2,9 +2,12 @@ package FileHandler;
 
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.jsfml.graphics.IntRect;
+import org.jsfml.graphics.Texture;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -14,7 +17,7 @@ import Animation.Animation;
 public class AssetsManager {
     
     public Map<String, Animation> m_animationMap = new HashMap<>();
-    public Map<String, SpriteSheet> m_spriteeMap = new HashMap<>();
+    public Map<String, Texture> m_textureMap = new HashMap<>();
     public AssetsManager(){}
 
     public void loadFromFile(String file)
@@ -50,7 +53,7 @@ public class AssetsManager {
                 int width   = tex.getInt("width");
                 int height  = tex.getInt("height"); 
 
-                addSprite(name, path, posX, posY, width, height);
+                addTexture(name, path, posX, posY, width, height);
             }
 
 
@@ -77,22 +80,28 @@ public class AssetsManager {
 
     public void addAnimation(String name, String texName, int frameCount, int duration)
     {
-        Animation anim = new Animation(name, getSprite(texName), frameCount, duration);
+        Animation anim = new Animation(name, getTexture(texName), frameCount, duration);
         m_animationMap.put(name, anim); 
         System.out.println("Animation " + name);
     }
 
-    public void addSprite(String name, String filePath, int posX, int posY, int width, int height)
+    public void addTexture(String name, String filePath, int posX, int posY, int width, int height)
     {
         System.out.println("Spritesheet " + name + " " + filePath);
-        SpriteSheet sprite = new SpriteSheet(filePath, posX, posY, width, height);
-        m_spriteeMap.put(name, sprite);
+        Texture texture = new Texture();
+        try {
+            texture.loadFromFile(Paths.get(filePath), new IntRect(posX, posY, width, height));
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        m_textureMap.put(name, texture);
     }
 
 
-    public SpriteSheet getSprite(String name)
+    public Texture getTexture(String name)
     {
-        return m_spriteeMap.get(name);
+        return m_textureMap.get(name);
     }
 
     public Animation getAnimation(String name)

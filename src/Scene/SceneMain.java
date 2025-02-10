@@ -1,8 +1,10 @@
 package Scene;
 
 import org.jsfml.graphics.Color;
+import org.jsfml.graphics.IntRect;
 import org.jsfml.graphics.RectangleShape;
 import org.jsfml.graphics.RenderWindow;
+import org.jsfml.graphics.Sprite;
 import org.jsfml.system.Vector2f;
 import org.jsfml.window.Keyboard;
 
@@ -44,6 +46,7 @@ public class SceneMain extends Scene{
 		// TODO Auto-generated method stub
 		RenderWindow window = m_game.window();
 		window.clear(Color.BLACK);
+
 		AssetsManager assets = getEngine().assets();
 		for(Entity temp : m_entityManager.getEntities("Player"))
 		{
@@ -53,12 +56,12 @@ public class SceneMain extends Scene{
 			Vec2f pos = ct.m_pos;
 			Vec2f size = cb.m_size;
 
-			RectangleShape rect = new RectangleShape(new Vector2f(size.x, size.y));
-			rect.setOrigin(size.x/2, size.y/2);
+			Sprite rect = new Sprite();
+			rect.setTexture(assets.getTexture("Idle_Fighter_Right"));
+			rect.setTextureRect(new IntRect(192,0, 192, 192));
 			rect.setPosition(pos.x, pos.y);
-			rect.rotate(90);
+			rect.setOrigin(new Vector2f(size.x/2, size.y/2));
 
-			
 			window.draw(rect);
 		}
 
@@ -120,7 +123,7 @@ public class SceneMain extends Scene{
 	{
 		player = m_entityManager.addEntity("Player");
 
-		player.addComponent(new CTransform(new Vec2f(10,10), 8));
+		player.addComponent(new CTransform(new Vec2f(100,100), 8));
 		player.addComponent(new CBoundingBox(new Vec2f(32, 32)));
 		player.addComponent(new CInput());
 
