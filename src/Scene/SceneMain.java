@@ -1,10 +1,10 @@
 package Scene;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.event.KeyEvent;
-import java.awt.geom.Rectangle2D;
+import org.jsfml.graphics.Color;
+import org.jsfml.graphics.RectangleShape;
+import org.jsfml.graphics.RenderWindow;
+import org.jsfml.system.Vector2f;
+import org.jsfml.window.Keyboard;
 
 import Action.Action;
 import Component.*;
@@ -22,11 +22,10 @@ public class SceneMain extends Scene{
 		super(engine);
 		// TODO Auto-generated constructor stub
 		genPlayer();
-		registerAction(KeyEvent.VK_W, "UP");
-		registerAction(KeyEvent.VK_W, "UP");
-		registerAction(KeyEvent.VK_S, "DOWN");
-		registerAction(KeyEvent.VK_D, "RIGHT");
-		registerAction(KeyEvent.VK_A, "LEFT");
+		registerAction(Keyboard.Key.W, "UP");
+		registerAction(Keyboard.Key.S, "DOWN");
+		registerAction(Keyboard.Key.D, "RIGHT");
+		registerAction(Keyboard.Key.A, "LEFT");
 	}
 
 	@Override
@@ -37,11 +36,14 @@ public class SceneMain extends Scene{
 			m_entityManager.update();
 			sMovement();
 		}
+		sRender();
 	}
-
+	
 	@Override
-	public void sRender(Graphics2D g2d) {
+	public void sRender() {
 		// TODO Auto-generated method stub
+		RenderWindow window = m_game.window();
+		window.clear(Color.BLACK);
 		AssetsManager assets = getEngine().assets();
 		for(Entity temp : m_entityManager.getEntities("Player"))
 		{
@@ -51,32 +53,18 @@ public class SceneMain extends Scene{
 			Vec2f pos = ct.m_pos;
 			Vec2f size = cb.m_size;
 
-			Rectangle2D.Float rect = new Rectangle2D.Float(pos.x, pos.y, size.x, size.y);
-			g2d.setColor(Color.blue);
-			g2d.fill(rect);
+			RectangleShape rect = new RectangleShape(new Vector2f(size.x, size.y));
+			rect.setOrigin(size.x/2, size.y/2);
+			rect.setPosition(pos.x, pos.y);
+			rect.rotate(90);
 
-			g2d.setColor(Color.red);
-			g2d.draw(rect);
+			
+			window.draw(rect);
 		}
 
-		int centerX = 192 + (192/2);
-		int centerY = 192 + (192/2);
-		double angle = Math.toRadians(45);
-
-		// System.out.println(centerX + " " + centerY);
-		g2d.rotate(angle);
-		g2d.translate(centerX, centerY);
-
-		g2d.drawImage(assets.getSprite("Idle_Fighter_Right").grabImage(1, 1, 192, 192), 192, 192, null);
-		Rectangle2D.Float rect = new Rectangle2D.Float(192, 192,192, 192);
-		g2d.setColor(new Color(0, 0, 255, 100));
-		g2d.fill(rect);
-
-
-		g2d.rotate(-angle);
-		//g2d.translate(-centerX, -centerY);
-
 		sAnimation();
+
+		window.display();
 	}
 
 	@Override
@@ -132,7 +120,7 @@ public class SceneMain extends Scene{
 	{
 		player = m_entityManager.addEntity("Player");
 
-		player.addComponent(new CTransform(new Vec2f(10,10), 5));
+		player.addComponent(new CTransform(new Vec2f(10,10), 8));
 		player.addComponent(new CBoundingBox(new Vec2f(32, 32)));
 		player.addComponent(new CInput());
 

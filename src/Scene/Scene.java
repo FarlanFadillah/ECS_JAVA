@@ -3,13 +3,15 @@ import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.jsfml.window.Keyboard;
+
 import Action.Action;
 import Engine.Engine;
 import Entity.EntityManager;
 public abstract class Scene {
 	
-	public Map<Integer, String> m_actionMap = new HashMap<>();
-	private Engine m_game;
+	public Map<Keyboard.Key, String> m_actionMap = new HashMap<>();
+	public Engine m_game;
 	public boolean m_paused = false;
 	
 	public EntityManager m_entityManager = new EntityManager();
@@ -20,12 +22,12 @@ public abstract class Scene {
 	}
 
 	public abstract void update();
-	public abstract void sRender(Graphics2D g2d);
+	public abstract void sRender();
 	public abstract void sDoAction(Action action);
 	public abstract void onEnd();
 	public abstract void sAnimation();
 	
-	public void registerAction(int key, String name)
+	public void registerAction(Keyboard.Key key, String name)
 	{
 		m_actionMap.put(key, name); 
 	}
