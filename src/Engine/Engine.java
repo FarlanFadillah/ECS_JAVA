@@ -12,10 +12,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import Action.Action;
+
 // project import
 import Input.KeyInput;
 import Scene.Scene;
 import Scene.SceneMain;
+import FileHandler.AssetsManager;
 
 public class Engine extends Canvas implements Runnable{
 	
@@ -28,6 +30,7 @@ public class Engine extends Canvas implements Runnable{
 	private boolean running = true;
 	private String currentSceneName = "NULL";
 	private Map<String, Scene> m_sceneMap = new HashMap<String, Scene>();
+	private AssetsManager m_assets = new AssetsManager();
 
 	public Map<Integer, String> keyInMap = new HashMap<>();
 	
@@ -40,6 +43,8 @@ public class Engine extends Canvas implements Runnable{
 		window = new Frame(800, 600, "ECS_JAVA", this);
 		keyIn = new KeyInput(this); 
 		addKeyListener(keyIn);
+
+		m_assets.loadFromFile("res/try.json");
 		
 		ChangeScene("MAIN", new SceneMain(this));
 	}
