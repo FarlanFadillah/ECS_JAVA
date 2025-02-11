@@ -2,7 +2,6 @@ package FileHandler;
 
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
-import java.io.InputStreamReader;
 
 import javax.imageio.ImageIO;
 

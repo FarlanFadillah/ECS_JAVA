@@ -1,13 +1,9 @@
 package Animation;
 
-import java.awt.image.BufferedImage;
-
-import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.IntRect;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Texture;
 
-import FileHandler.SpriteSheet;
 public class Animation 
 {
 

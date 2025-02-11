@@ -2,7 +2,6 @@ package Scene;
 
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.IntRect;
-import org.jsfml.graphics.RectangleShape;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.system.Vector2f;
@@ -115,7 +114,7 @@ public class SceneMain extends Scene{
 
 	@Override
 	public void onEnd() {
-		// TODO Auto-generated method stub
+
 	}
 
 

@@ -1,5 +1,4 @@
 package Scene;
-import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.Map;
 

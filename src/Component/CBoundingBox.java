@@ -1,6 +1,5 @@
 package Component;
 
-import Math.Vec2f;
 import Math.Vec2i;
 
 public class CBoundingBox extends Component
