@@ -6,6 +6,7 @@ public class CTransform extends Component {
     public Vec2f m_pos;
     public float m_speed;
     public Vec2f m_vel = new Vec2f();
+    public float angle = 0.0f;
     public CTransform(){}
     public CTransform(Vec2f pos, float speed)
     {

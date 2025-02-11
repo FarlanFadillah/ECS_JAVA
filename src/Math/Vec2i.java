@@ -14,61 +14,61 @@ public class Vec2i {
         this.y = yin;
     }
 
-    public boolean equals(Vec2f rhs)
+    public boolean equals(Vec2i rhs)
     {
         return this.x == rhs.x && this.y == rhs.y;
     }
     
-    public boolean GTOET(Vec2f rhs)
+    public boolean GTOET(Vec2i rhs)
     {
         return this.x >= rhs.x || this.y >= rhs.y;
     }
 
-    public boolean LTOET(Vec2f rhs)
+    public boolean LTOET(Vec2i rhs)
     {
         return this.x <= rhs.x || this.y <= rhs.y;
     }
 
-    public boolean NET(Vec2f rhs)
+    public boolean NET(Vec2i rhs)
     {
         return !equals(rhs);
     }
 
-    public Vec2f add(Vec2f rhs)
+    public Vec2i add(Vec2i rhs)
     {
-        return new Vec2f(this.x + rhs.x, this.y + rhs.y);
+        return new Vec2i(this.x + rhs.x, this.y + rhs.y);
     }
 
-    public Vec2f sub(Vec2f rhs)
+    public Vec2i sub(Vec2i rhs)
     {
-        return new Vec2f(this.x - rhs.x, this.y - rhs.y);
+        return new Vec2i(this.x - rhs.x, this.y - rhs.y);
     }
 
-    public Vec2f div(Vec2f rhs)
+    public Vec2i div(Vec2i rhs)
     {
-        return new Vec2f(this.x / rhs.x, this.y / rhs.y);
+        return new Vec2i(this.x / rhs.x, this.y / rhs.y);
     }
-    public Vec2f div(int val)
+    public Vec2i div(int val)
     {
-        return new Vec2f(this.x / val, this.y / val);
-    }
-
-    public Vec2f mult(Vec2f rhs)
-    {
-        return new Vec2f(this.x * rhs.x, this.y * rhs.y);
-    }
-    public Vec2f mult(int val)
-    {
-        return new Vec2f(this.x * val, this.y * val);
+        return new Vec2i(this.x / val, this.y / val);
     }
 
-    public void plus(Vec2f rhs)
+    public Vec2i mult(Vec2i rhs)
+    {
+        return new Vec2i(this.x * rhs.x, this.y * rhs.y);
+    }
+    public Vec2i mult(int val)
+    {
+        return new Vec2i(this.x * val, this.y * val);
+    }
+
+    public void plus(Vec2i rhs)
     {
         this.x += rhs.x;
         this.y += rhs.y;
     }
 
-    public void min(Vec2f rhs)
+    public void min(Vec2i rhs)
     {
         this.x -= rhs.x;
         this.y -= rhs.y;
@@ -87,7 +87,7 @@ public class Vec2i {
     }
 
 
-    public int dist(Vec2f rhs)
+    public int dist(Vec2i rhs)
     {
         return (int)Math.sqrt(Math.pow(x - rhs.x, 2) + Math.pow(y - rhs.y, 2));
     }

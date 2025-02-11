@@ -15,6 +15,7 @@ import Engine.Engine;
 import Entity.Entity;
 import FileHandler.AssetsManager;
 import Math.Vec2f;
+import Math.Vec2i;
 
 public class SceneMain extends Scene{
 
@@ -53,13 +54,13 @@ public class SceneMain extends Scene{
 			CBoundingBox cb = temp.getComponent(CBoundingBox.class);
 
 			Vec2f pos = ct.m_pos;
-			Vec2f size = cb.m_size;
+			Vec2i size = cb.m_size;
 
 			Sprite rect = new Sprite();
 			rect.setTexture(assets.getTexture("Idle_Fighter_Right"));
-			rect.setTextureRect(new IntRect(192,0, 192, 192));
-			rect.setPosition(pos.x, pos.y);
+			rect.setTextureRect(new IntRect(192,0, size.x, size.y));
 			rect.setOrigin(new Vector2f(size.x/2, size.y/2));
+			rect.setPosition(pos.x, pos.y);
 
 			window.draw(rect);
 		}
@@ -123,7 +124,7 @@ public class SceneMain extends Scene{
 		player = m_entityManager.addEntity("Player");
 
 		player.addComponent(new CTransform(new Vec2f(100,100), 8));
-		player.addComponent(new CBoundingBox(new Vec2f(32, 32)));
+		player.addComponent(new CBoundingBox(new Vec2i(192, 192)));
 		player.addComponent(new CInput());
 
 		m_entityManager.update();
